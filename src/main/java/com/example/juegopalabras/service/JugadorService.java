@@ -5,6 +5,7 @@ import com.example.juegopalabras.repos.JugadorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 @Service
@@ -21,6 +22,9 @@ public class JugadorService {
     }
 
     public Jugador guardarJugador(Jugador jugador) {
+        jugador.setFecha_creacion(LocalDate.now());
+        jugador.setFecha_modificacion(LocalDate.now());
+        jugador.setRol("USER");
         return jugadorRepository.save(jugador);
     }
 

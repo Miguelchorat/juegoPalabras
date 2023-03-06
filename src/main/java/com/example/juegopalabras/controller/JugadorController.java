@@ -69,7 +69,7 @@ public class JugadorController {
         List<Jugador> jugadores = jugadorService.obtenerJugadoresPorEquipo(id_equipo);
 
         if(jugadores == null || jugadores.isEmpty()) {
-            throw new EquipoNotFoundException(id_equipo);
+            throw new JugadorNotFoundException();
         }
 
         return ResponseEntity.ok(jugadores);
