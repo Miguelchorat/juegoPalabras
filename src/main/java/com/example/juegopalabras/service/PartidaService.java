@@ -1,5 +1,6 @@
 package com.example.juegopalabras.service;
 
+import com.example.juegopalabras.error.JugadorNotFoundException;
 import com.example.juegopalabras.model.Partida;
 import com.example.juegopalabras.repos.PartidaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,21 @@ public class PartidaService {
 
     public void borrarPartida(Long id) {
         partidaRepository.deleteById(id);
+    }
+
+    public List<Partida> findByJugadorId(Long id_jugador){
+        return partidaRepository.findByJugadorId(id_jugador);
+    }
+
+    public int getPuntosByJugadorId(Long id_jugador){
+        List<Partida> partidas = findByJugadorId(id_jugador);
+        if(partidas == null || partidas.isEmpty())
+            throw new JugadorNotFoundException(id_jugador);
+        int puntos = 0;
+        for (Partida partida: partidas) {
+            puntos += partida.getPuntos();
+        }
+        return puntos;
     }
 
 }

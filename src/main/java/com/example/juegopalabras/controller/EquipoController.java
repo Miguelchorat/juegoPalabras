@@ -5,6 +5,7 @@ import com.example.juegopalabras.error.JugadorNotFoundException;
 import com.example.juegopalabras.model.Equipo;
 import com.example.juegopalabras.model.Jugador;
 import com.example.juegopalabras.service.EquipoService;
+import com.example.juegopalabras.service.PartidaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class EquipoController {
     private final EquipoService equipoService;
+    private final PartidaService partidaService;
 
     @GetMapping("/equipos")
     public ResponseEntity<List<Equipo>> obtenerEquipos() {
@@ -58,5 +60,16 @@ public class EquipoController {
         } else {
             throw new EquipoNotFoundException(id);
         }
+    }
+
+    @GetMapping("/equipo/{id}/puntos")
+    public int obtenerPuntos(@PathVariable Long id){
+        List<Jugador> jugadores = equipoService.obtenerEquipo(id).orElseThrow(() -> new EquipoNotFoundException(id)).getJugadores();
+        int puntos = 0;
+
+        for (Jugador jugador : jugadores) {
+            puntos += partidaService.getPuntosByJugadorId(jugador.getId());
+        }
+        return puntos;
     }
 }
