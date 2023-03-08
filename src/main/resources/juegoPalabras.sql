@@ -78,7 +78,6 @@ CREATE TABLE IF NOT EXISTS `juegoPalabras`.`Partida` (
   `palabra` VARCHAR(30) NOT NULL,
   `fecha` DATE NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY (`id_jugador`, `id_juego`),
   INDEX `fk_Jugador_has_Juego_Juego1_idx` (`id_juego` ASC) VISIBLE,
   INDEX `fk_Jugador_has_Juego_Jugador_idx` (`id_jugador` ASC) VISIBLE,
   CONSTRAINT `fk_Jugador_has_Juego_Jugador`
