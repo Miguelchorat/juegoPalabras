@@ -2,6 +2,7 @@ package com.example.juegopalabras.service;
 
 import com.example.juegopalabras.model.Equipo;
 import com.example.juegopalabras.repos.EquipoRepository;
+import com.example.juegopalabras.repos.JuegoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,12 +12,8 @@ import java.util.Optional;
 
 @Service
 public class EquipoService {
-    private final EquipoRepository equipoRepository;
-
     @Autowired
-    public EquipoService(EquipoRepository equipoRepository) {
-        this.equipoRepository = equipoRepository;
-    }
+    private EquipoRepository equipoRepository;
 
     public List<Equipo> obtenerEquipos() {
         return equipoRepository.findAll();
