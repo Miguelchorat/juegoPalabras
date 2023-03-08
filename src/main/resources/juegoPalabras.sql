@@ -70,13 +70,14 @@ ENGINE = InnoDB;
 -- Table `juegoPalabras`.`Partida`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `juegoPalabras`.`Partida` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_jugador` INT UNSIGNED NOT NULL,
   `id_juego` INT UNSIGNED NOT NULL,
   `puntos` INT NOT NULL,
   `intentos` INT NOT NULL,
   `palabra` VARCHAR(30) NOT NULL,
   `fecha` DATE NULL,
-  PRIMARY KEY (`id_jugador`, `id_juego`),
+  PRIMARY KEY (`id`),
   INDEX `fk_Jugador_has_Juego_Juego1_idx` (`id_juego` ASC) VISIBLE,
   INDEX `fk_Jugador_has_Juego_Jugador_idx` (`id_jugador` ASC) VISIBLE,
   CONSTRAINT `fk_Jugador_has_Juego_Jugador`
