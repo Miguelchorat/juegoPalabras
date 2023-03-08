@@ -4,9 +4,14 @@ import com.example.juegopalabras.error.JugadorNotFoundException;
 import com.example.juegopalabras.model.Partida;
 import com.example.juegopalabras.repos.PartidaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,4 +53,18 @@ public class PartidaService {
         return puntos;
     }
 
+    public String obtenerPalabra(){
+        List<String> palabras = new ArrayList<>();
+
+        ClassPathResource resource = new ClassPathResource("palabras.txt");
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));) {
+            String line;
+            while((line = reader.readLine()) != null){
+                palabras.add(line.trim());
+            }
+        } catch (IOException ioe){
+            return null;
+        }
+        return palabras.get((int)(Math.random() * palabras.size()) + 1);
+    }
 }

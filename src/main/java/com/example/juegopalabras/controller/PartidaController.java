@@ -69,4 +69,9 @@ public class PartidaController {
     public int getPuntosJugador(@PathVariable Long id){
         return partidaService.getPuntosByJugadorId(id);
     }
+
+    @GetMapping("/partida/palabra")
+    public String obtenerPalabra(){
+        return partidaService.obtenerPalabra();
+    }
 }
