@@ -1,18 +1,21 @@
 package com.example.juegopalabras.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 public class Jugador {
     @Id
     @GeneratedValue
@@ -28,4 +31,10 @@ public class Jugador {
     @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name="id_equipo")
     private Equipo equipo;
+
+    @EqualsAndHashCode.Exclude @ToString.Exclude
+    @JsonIgnore
+    @Builder.Default
+    @OneToMany(mappedBy = "jugador", cascade = CascadeType.ALL)
+    private Set<Partida> partidas = new HashSet<>();
 }

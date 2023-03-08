@@ -57,7 +57,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `juegoPalabras`.`Juego` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(50) NOT NULL,
-  `dificultad` ENUM("Facil", "Intermedio", "Dificil") NOT NULL,
+  `dificultad` ENUM("FACIL", "INTERMEDIO", "DIFICIL") NOT NULL,
   `instrucciones` VARCHAR(200) NOT NULL,
   `fecha_creacion` DATE NOT NULL,
   `fecha_modificacion` DATE NOT NULL,
@@ -70,13 +70,15 @@ ENGINE = InnoDB;
 -- Table `juegoPalabras`.`Partida`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `juegoPalabras`.`Partida` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_jugador` INT UNSIGNED NOT NULL,
   `id_juego` INT UNSIGNED NOT NULL,
   `puntos` INT NOT NULL,
   `intentos` INT NOT NULL,
   `palabra` VARCHAR(30) NOT NULL,
   `fecha` DATE NULL,
-  PRIMARY KEY (`id_jugador`, `id_juego`),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY (`id_jugador`, `id_juego`),
   INDEX `fk_Jugador_has_Juego_Juego1_idx` (`id_juego` ASC) VISIBLE,
   INDEX `fk_Jugador_has_Juego_Jugador_idx` (`id_jugador` ASC) VISIBLE,
   CONSTRAINT `fk_Jugador_has_Juego_Jugador`
@@ -112,9 +114,9 @@ INSERT INTO `juegoPalabras`.`Jugador` (`id_equipo`, `nombre`, `correo`, `clave`,
 
 -- Inserción de datos para la tabla Juego
 INSERT INTO `juegoPalabras`.`Juego` (`nombre`, `dificultad`, `instrucciones`, `fecha_creacion`, `fecha_modificacion`, `intentos`) VALUES
-('Juego 1', 'Facil', 'Adivina la palabra con las pistas dadas', NOW(), NOW(), 3),
-('Juego 2', 'Intermedio', 'Completa las palabras faltantes', NOW(), NOW(), 3),
-('Juego 3', 'Dificil', 'Encuentra la palabra oculta en la sopa de letras', NOW(), NOW(), 3);
+('Juego 1', 'FACIL', 'Adivina la palabra con las pistas dadas', NOW(), NOW(), 3),
+('Juego 2', 'INTERMEDIO', 'Completa las palabras faltantes', NOW(), NOW(), 3),
+('Juego 3', 'DIFICIL', 'Encuentra la palabra oculta en la sopa de letras', NOW(), NOW(), 3);
 
 -- Inserción de datos para la tabla Partida
 INSERT INTO `juegoPalabras`.`Partida` (`id_jugador`, `id_juego`, `puntos`, `intentos`, `palabra`, `fecha`) VALUES
