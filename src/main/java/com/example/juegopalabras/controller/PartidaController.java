@@ -1,7 +1,6 @@
 package com.example.juegopalabras.controller;
 
 import com.example.juegopalabras.error.JuegoNotFoundException;
-import com.example.juegopalabras.error.JugadorNotFoundException;
 import com.example.juegopalabras.error.PartidaNotFoundException;
 import com.example.juegopalabras.model.Partida;
 import com.example.juegopalabras.service.PartidaService;
@@ -64,14 +63,8 @@ public class PartidaController {
             throw new JuegoNotFoundException(id);
         }
     }
-
     @GetMapping("/jugador/{id}/puntos")
     public int getPuntosJugador(@PathVariable Long id){
         return partidaService.getPuntosByJugadorId(id);
-    }
-
-    @GetMapping("/partida/palabra")
-    public String obtenerPalabra(){
-        return partidaService.obtenerPalabra();
     }
 }
